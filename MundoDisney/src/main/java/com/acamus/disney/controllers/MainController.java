@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("auth")
 public class MainController {
     
     @Autowired
@@ -30,14 +30,12 @@ public class MainController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtils jwtTokenUtil;
-
-    
-    //SIGNUP
-    
+            
     /**
+     * SIGNUP
      * Registration method that generates a token and an automatic login.
      * @param userDTO
-     * @return ResponseEntity.ok(new AuthResponseDTO(jwt))
+     * @return String jwt Token
      */
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDTO>signup(@RequestBody @Valid UserDTO userDTO){
@@ -48,7 +46,11 @@ public class MainController {
         final String jwt = jwtTokenUtil.generateToken(auth);
         return ResponseEntity.ok(new AuthResponseDTO(jwt));
     }
-
+    /**
+     * LOGIN
+     * @param authRequest
+     * @return ResponseEntity
+     */
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO>login(@RequestBody @Valid AuthRequestDTO authRequest){
         Authentication auth;
