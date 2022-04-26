@@ -24,7 +24,11 @@ public class GenreController {
     
     @Autowired
     GenreService genreService;
-    //All Genre
+    
+    /**
+     * All Genre
+     * @return ResponseEntity
+     */
     @GetMapping("/all")
     public ResponseEntity<List<GenreDTO>> getAll(){
         List<GenreDTO> genres = genreService.getAllGenre();
