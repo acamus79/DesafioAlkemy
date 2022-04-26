@@ -28,9 +28,9 @@ public class CharacterController {
         return ResponseEntity.ok().body(charDTOs);
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<CharacterDTO> getDetailsById(@PathVariable Long id) {
-        CharacterDTO charDetails = characterSevice.getCharDetails(id);
+    @GetMapping("/details/{characterId}")
+    public ResponseEntity<CharacterDTO> getDetailsById(@PathVariable Long characterId) {
+        CharacterDTO charDetails = characterSevice.getCharDetails(characterId);
         return ResponseEntity.status(HttpStatus.OK).body(charDetails);
     }
 
@@ -40,21 +40,37 @@ public class CharacterController {
         CharacterDTO charSave = characterSevice.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(charSave);
     }
-
-    //Update for id
-    @PutMapping("/{id}")
-    public ResponseEntity<CharacterDTO> editCharacter(@PathVariable Long id, @RequestBody CharacterDTO charToEdit) {
-        CharacterDTO editedChar = characterSevice.editCharacterById(id, charToEdit);
+ 
+    /**
+     * Update for id
+     * @param characterId
+     * @param charToEdit
+     * @return 
+     */
+    @PutMapping("/{characterId}")
+    public ResponseEntity<CharacterDTO> editCharacter(@PathVariable Long characterId, @RequestBody CharacterDTO charToEdit) {
+        CharacterDTO editedChar = characterSevice.editCharacterById(characterId, charToEdit);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(editedChar);
     }
 
-    //delete for id Soft-delete
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        characterSevice.deleteCharacterById(id);
+    
+    /**
+     * Delete for id
+     * @param characterId
+     * @return ResponseEntity
+     */
+    @DeleteMapping("/delete/{characterId}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long characterId) {
+        characterSevice.deleteCharacterById(characterId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
+    /**
+     * Filters
+     * @param name
+     * @param age
+     * @param movies
+     * @return 
+     */
     @GetMapping()
     public ResponseEntity<List<CharacterDTO>> getDetailsByFilters(
             @RequestParam(required = false) String name,
