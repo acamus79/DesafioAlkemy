@@ -28,6 +28,7 @@ public class MovieController {
 
     @Autowired
     MovieService mService;
+    
     /**
      * Get list for all movies
      * @return ResponseEntity and Movie List
@@ -43,7 +44,7 @@ public class MovieController {
      * @param String id
      * @return ResponseEntity
      */
-    @GetMapping("/details/{id}")
+    @GetMapping("/details/{movieId}")
     public ResponseEntity<MovieDTO> getDetailsById(@PathVariable String id){
         MovieDTO movie = mService.getDetails(id);
         return ResponseEntity.status(HttpStatus.OK).body(movie);
@@ -59,6 +60,7 @@ public class MovieController {
         MovieDTO movieSave = mService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieSave);
     }
+    
     /**
      * 
      * @param movieId
@@ -89,7 +91,7 @@ public class MovieController {
      * @param movieToEdit
      * @return ResponseEntity
      */
-    @PutMapping("/{id}")
+    @PutMapping("/{movieId}")
     public ResponseEntity<MovieDTO> editMovie(@PathVariable String id, @RequestBody MovieDTO movieToEdit){
         MovieDTO editedMovie = mService.update(id, movieToEdit);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(editedMovie);
@@ -100,7 +102,7 @@ public class MovieController {
      * @param String id
      * @return ResponseEntity
      */
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{movieId}")
     public ResponseEntity<Void> deleteById(@PathVariable String id){
         mService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
