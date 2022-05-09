@@ -10,6 +10,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Adrian E. Camus <https://acamus79.github.io/>
+ */
 @Component
 public class MovieMapper {
 
